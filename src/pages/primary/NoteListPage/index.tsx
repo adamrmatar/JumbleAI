@@ -48,6 +48,10 @@ const NoteListPage = forwardRef((_, ref) => {
     }
   }, [relayUrls])
 
+  if (!feedInfo) {
+    return null
+  }
+
   let content: React.ReactNode = null
   if (!isReady) {
     content = <div className="text-center text-sm text-muted-foreground">{t('loading...')}</div>

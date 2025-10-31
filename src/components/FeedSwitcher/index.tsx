@@ -19,7 +19,7 @@ export default function FeedSwitcher({ close }: { close?: () => void }) {
     <div className="space-y-2">
       {pubkey && (
         <FeedSwitcherItem
-          isActive={feedInfo.feedType === 'following'}
+          isActive={feedInfo?.feedType === 'following'}
           onClick={() => {
             if (!pubkey) return
             switchFeed('following', { pubkey })
@@ -50,7 +50,7 @@ export default function FeedSwitcher({ close }: { close?: () => void }) {
           <RelaySetCard
             key={set.id}
             relaySet={set}
-            select={feedInfo.feedType === 'relays' && set.id === feedInfo.id}
+            select={feedInfo?.feedType === 'relays' && set.id === feedInfo.id}
             onSelectChange={(select) => {
               if (!select) return
               switchFeed('relays', { activeRelaySetId: set.id })
@@ -61,7 +61,7 @@ export default function FeedSwitcher({ close }: { close?: () => void }) {
       {favoriteRelays.map((relay) => (
         <FeedSwitcherItem
           key={relay}
-          isActive={feedInfo.feedType === 'relay' && feedInfo.id === relay}
+          isActive={feedInfo?.feedType === 'relay' && feedInfo.id === relay}
           onClick={() => {
             switchFeed('relay', { relay })
             close?.()

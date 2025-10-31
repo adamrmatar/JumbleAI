@@ -1,4 +1,3 @@
-import { DEFAULT_FAVORITE_RELAYS } from '@/constants'
 import { getRelaySetFromEvent } from '@/lib/event-metadata'
 import { isWebsocketUrl, normalizeUrl } from '@/lib/url'
 import indexedDb from '@/services/indexed-db.service'
@@ -31,13 +30,10 @@ export const useFeed = () => {
 
 export function FeedProvider({ children }: { children: React.ReactNode }) {
   const { pubkey, isInitialized } = useNostr()
-  const { relaySets, favoriteRelays } = useFavoriteRelays()
+  const { relaySets } = useFavoriteRelays()
   const [relayUrls, setRelayUrls] = useState<string[]>([])
   const [isReady, setIsReady] = useState(false)
-  const [feedInfo, setFeedInfo] = useState<TFeedInfo>({
-    feedType: 'relay',
-    id: DEFAULT_FAVORITE_RELAYS[0]
-  })
+  const [feedInfo, setFeedInfo] = useState<TFeedInfo>(null)
   const feedInfoRef = useRef<TFeedInfo>(feedInfo)
 
   useEffect(() => {
@@ -46,15 +42,16 @@ export function FeedProvider({ children }: { children: React.ReactNode }) {
         return
       }
 
-      let feedInfo: TFeedInfo = {
-        feedType: 'relay',
-        id: favoriteRelays[0] ?? DEFAULT_FAVORITE_RELAYS[0]
-      }
+      let feedInfo: TFeedInfo = null
       if (pubkey) {
         const storedFeedInfo = storage.getFeedInfo(pubkey)
         if (storedFeedInfo) {
           feedInfo = storedFeedInfo
         }
+      }
+
+      if (!feedInfo) {
+        return
       }
 
       if (feedInfo.feedType === 'relays') {
