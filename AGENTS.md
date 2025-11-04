@@ -103,13 +103,22 @@ npm run format
 
 Service files located in `src/services/` encapsulate business logic:
 
+- `client.service.ts` - Nostr client core logic for fetching and publishing events
 - `indexed-db.service.ts` - IndexedDB data storage
 - `local-storage.service.ts` - LocalStorage management
 - `media-upload.service.ts` - Media upload service
 - `translation.service.ts` - Translation service
 - `lightning.service.ts` - Lightning Network integration
 - `relay-info.service.ts` - Relay information management
-- etc...
+- `blossom.service.ts` - Blossom integration
+- `custom-emoji.service.ts` - Custom emoji management
+- `libre-translate.service.ts` - LibreTranslate API integration
+- `media-manager.service.ts` - Managing media play state
+- `modal-manager.service.ts` - Managing modal stack for back navigation (ensures modals close one by one before actual page navigation)
+- `note-stats.service.ts` - Note statistics storage and retrieval (likes, zaps, reposts)
+- `poll-results.service.ts` - Poll results storage and retrieval
+- `post-editor-cache.service.ts` - Caching post editor content to prevent data loss
+- `web.push.service.ts` - Web metadata fetching for link previews
 
 ### Providers Architecture
 
