@@ -76,7 +76,6 @@ export const ExtendedKind = {
   VOICE_COMMENT: 1244,
   FAVORITE_RELAYS: 10012,
   BLOSSOM_SERVER_LIST: 10063,
-  EMOJI_PACK: 30030,
   RELAY_REVIEW: 31987,
   GROUP_METADATA: 39000
 }
@@ -93,8 +92,8 @@ export const SUPPORTED_KINDS = [
   ExtendedKind.VOICE_COMMENT,
   kinds.Highlights,
   kinds.LongFormArticle,
-  ExtendedKind.EMOJI_PACK,
-  ExtendedKind.RELAY_REVIEW
+  ExtendedKind.RELAY_REVIEW,
+  kinds.Emojisets
 ]
 
 export const URL_REGEX =

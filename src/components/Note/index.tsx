@@ -103,7 +103,7 @@ export default function Note({
     content = <VideoNote className="mt-2" event={event} />
   } else if (event.kind === ExtendedKind.RELAY_REVIEW) {
     content = <RelayReview className="mt-2" event={event} />
-  } else if (event.kind === ExtendedKind.EMOJI_PACK) {
+  } else if (event.kind === kinds.Emojisets) {
     content = <EmojiPack className="mt-2" event={event} />
   } else {
     content = <Content className="mt-2" event={event} />
