@@ -498,6 +498,7 @@ export default {
       'Jumble é um cliente focado em explorar relays. Comece por explorar relays interessantes ou inicie sessão para ver o seu feed de seguidos.',
     'Explore Relays': 'Explorar Relays',
     'Choose a feed': 'Escolha um feed',
-    'and {{x}} others': 'e {{x}} outros'
+    'and {{x}} others': 'e {{x}} outros',
+    'Emoji Pack': 'Pacote de Emojis'
   }
 }

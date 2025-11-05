@@ -504,6 +504,7 @@ export default {
       'Jumble ist ein Client, der sich auf das Durchsuchen von Relays konzentriert. Beginnen Sie mit der Erkundung interessanter Relays oder melden Sie sich an, um Ihren Following-Feed anzuzeigen.',
     'Explore Relays': 'Relays erkunden',
     'Choose a feed': 'Wähle einen Feed',
-    'and {{x}} others': 'und {{x}} andere'
+    'and {{x}} others': 'und {{x}} andere',
+    'Emoji Pack': 'Emoji-Paket'
   }
 }

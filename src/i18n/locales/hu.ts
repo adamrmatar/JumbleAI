@@ -489,6 +489,7 @@ export default {
       'Jumble egy kliens, amivel könnyen böngészhetsz csomópontokat. Kezdd az érdekes csomópontok felderítésével, vagy lépj be, hogy a követettek posztjait megnézd.',
     'Explore Relays': 'Csomópontok felderítése',
     'Choose a feed': 'Válassz hírfolyamot',
-    'and {{x}} others': 'és {{x}} másik'
+    'and {{x}} others': 'és {{x}} másik',
+    'Emoji Pack': 'Emoji csomag'
   }
 }
