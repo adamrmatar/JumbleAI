@@ -504,6 +504,8 @@ export default {
     'Add emoji pack failed': 'Dodawanie pakietu emoji nie powiodło się',
     'Emoji pack removed': 'Pakiet emoji usunięty',
     'Remove emoji pack failed': 'Usuwanie pakietu emoji nie powiodło się',
-    Added: 'Dodano'
+    Added: 'Dodano',
+    'Emoji Packs': 'Pakiety Emoji',
+    'My Packs': 'Moje Pakiety'
   }
 }

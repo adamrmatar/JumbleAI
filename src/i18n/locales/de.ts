@@ -510,6 +510,8 @@ export default {
     'Add emoji pack failed': 'Hinzufügen des Emoji-Pakets fehlgeschlagen',
     'Emoji pack removed': 'Emoji-Paket entfernt',
     'Remove emoji pack failed': 'Entfernen des Emoji-Pakets fehlgeschlagen',
-    Added: 'Hinzugefügt'
+    Added: 'Hinzugefügt',
+    'Emoji Packs': 'Emoji-Pakete',
+    'My Packs': 'Meine Pakete'
   }
 }

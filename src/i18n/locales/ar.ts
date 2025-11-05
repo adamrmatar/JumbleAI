@@ -496,6 +496,8 @@ export default {
     'Add emoji pack failed': 'فشل إضافة حزمة الرموز التعبيرية',
     'Emoji pack removed': 'تمت إزالة حزمة الرموز التعبيرية',
     'Remove emoji pack failed': 'فشل إزالة حزمة الرموز التعبيرية',
-    Added: 'تمت الإضافة'
+    Added: 'تمت الإضافة',
+    'Emoji Packs': 'حزم الرموز التعبيرية',
+    'My Packs': 'حزمي'
   }
 }

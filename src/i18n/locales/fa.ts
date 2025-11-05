@@ -499,6 +499,8 @@ export default {
     'Add emoji pack failed': 'افزودن بسته ایموجی ناموفق بود',
     'Emoji pack removed': 'بسته ایموجی حذف شد',
     'Remove emoji pack failed': 'حذف بسته ایموجی ناموفق بود',
-    Added: 'اضافه شد'
+    Added: 'اضافه شد',
+    'Emoji Packs': 'بسته‌های ایموجی',
+    'My Packs': 'بسته‌های من'
   }
 }

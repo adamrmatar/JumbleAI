@@ -492,6 +492,8 @@ export default {
     'Add emoji pack failed': '添加表情包失败',
     'Emoji pack removed': '表情包已移除',
     'Remove emoji pack failed': '移除表情包失败',
-    Added: '已添加'
+    Added: '已添加',
+    'Emoji Packs': '表情包',
+    'My Packs': '我的表情包'
   }
 }

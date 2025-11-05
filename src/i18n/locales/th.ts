@@ -494,6 +494,8 @@ export default {
     'Add emoji pack failed': 'การเพิ่มแพ็คอีโมจิล้มเหลว',
     'Emoji pack removed': 'ลบแพ็คอีโมจิแล้ว',
     'Remove emoji pack failed': 'การลบแพ็คอีโมจิล้มเหลว',
-    Added: 'เพิ่มแล้ว'
+    Added: 'เพิ่มแล้ว',
+    'Emoji Packs': 'แพ็คอีโมจิ',
+    'My Packs': 'แพ็คของฉัน'
   }
 }

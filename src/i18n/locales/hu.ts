@@ -495,6 +495,8 @@ export default {
     'Add emoji pack failed': 'Emoji csomag hozzáadása sikertelen',
     'Emoji pack removed': 'Emoji csomag eltávolítva',
     'Remove emoji pack failed': 'Emoji csomag eltávolítása sikertelen',
-    Added: 'Hozzáadva'
+    Added: 'Hozzáadva',
+    'Emoji Packs': 'Emoji csomagok',
+    'My Packs': 'Saját csomagjaim'
   }
 }

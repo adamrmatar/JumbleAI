@@ -504,6 +504,8 @@ export default {
     'Add emoji pack failed': 'Error al añadir paquete de emojis',
     'Emoji pack removed': 'Paquete de emojis eliminado',
     'Remove emoji pack failed': 'Error al eliminar paquete de emojis',
-    Added: 'Añadido'
+    Added: 'Añadido',
+    'Emoji Packs': 'Paquetes de Emojis',
+    'My Packs': 'Mis Paquetes'
   }
 }

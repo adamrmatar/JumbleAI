@@ -500,6 +500,8 @@ export default {
     'Add emoji pack failed': '이모지 팩 추가 실패',
     'Emoji pack removed': '이모지 팩이 제거되었습니다',
     'Remove emoji pack failed': '이모지 팩 제거 실패',
-    Added: '추가됨'
+    Added: '추가됨',
+    'Emoji Packs': '이모지 팩',
+    'My Packs': '내 팩'
   }
 }
