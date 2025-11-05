@@ -87,10 +87,10 @@ export default function EmojiPack({ event, className }: { event: Event; classNam
           <Image
             key={`emoji-${index}`}
             image={{ url: emoji.url, pubkey: event.pubkey }}
-            className="w-10 h-10 object-contain"
+            className="size-14 object-contain"
             classNames={{
-              wrapper: 'w-10 h-10 flex items-center justify-center p-1',
-              errorPlaceholder: 'w-10 h-10'
+              wrapper: 'size-14 flex items-center justify-center p-1',
+              errorPlaceholder: 'size-14'
             }}
             hideIfError
           />
