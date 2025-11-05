@@ -68,17 +68,20 @@ export default function EmojiPack({ event, className }: { event: Event; classNam
             disabled={updating}
             className="shrink-0"
           >
-            {isCollected ? (
-              <>
-                <CheckIcon />
-                {t('Added')}
-              </>
+            {updating ? (
+              <Loader className="animate-spin mr-1" />
+            ) : isCollected ? (
+              <CheckIcon />
             ) : (
-              <>
-                {updating ? <Loader className="animate-spin mr-1" /> : <PlusIcon />}
-                {t('Add')}
-              </>
+              <PlusIcon />
             )}
+            {updating
+              ? isCollected
+                ? t('Removing...')
+                : t('Adding...')
+              : isCollected
+                ? t('Added')
+                : t('Add')}
           </Button>
         )}
       </div>

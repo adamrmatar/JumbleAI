@@ -503,6 +503,8 @@ export default {
     'Remove emoji pack failed': 'इमोजी पैक हटाना विफल रहा',
     Added: 'जोड़ा गया',
     'Emoji Packs': 'इमोजी पैक',
-    'My Packs': 'मेरे पैक'
+    'My Packs': 'मेरे पैक',
+    'Adding...': 'जोड़ा जा रहा है...',
+    'Removing...': 'हटाया जा रहा है...'
   }
 }

@@ -497,6 +497,8 @@ export default {
     'Remove emoji pack failed': 'Remove emoji pack failed',
     Added: 'Added',
     'Emoji Packs': 'Emoji Packs',
-    'My Packs': 'My Packs'
+    'My Packs': 'My Packs',
+    'Adding...': 'Adding...',
+    'Removing...': 'Removing...'
   }
 }

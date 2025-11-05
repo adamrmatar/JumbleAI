@@ -503,6 +503,8 @@ export default {
     'Remove emoji pack failed': 'Falha ao remover pacote de emojis',
     Added: 'Adicionado',
     'Emoji Packs': 'Pacotes de Emojis',
-    'My Packs': 'Meus Pacotes'
+    'My Packs': 'Meus Pacotes',
+    'Adding...': 'Adicionando...',
+    'Removing...': 'Removendo...'
   }
 }

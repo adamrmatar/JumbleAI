@@ -502,6 +502,8 @@ export default {
     'Remove emoji pack failed': '絵文字パックの削除に失敗しました',
     Added: '追加済み',
     'Emoji Packs': '絵文字パック',
-    'My Packs': 'マイパック'
+    'My Packs': 'マイパック',
+    'Adding...': '追加中...',
+    'Removing...': '削除中...'
   }
 }

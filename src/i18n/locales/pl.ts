@@ -506,6 +506,8 @@ export default {
     'Remove emoji pack failed': 'Usuwanie pakietu emoji nie powiodło się',
     Added: 'Dodano',
     'Emoji Packs': 'Pakiety Emoji',
-    'My Packs': 'Moje Pakiety'
+    'My Packs': 'Moje Pakiety',
+    'Adding...': 'Dodawanie...',
+    'Removing...': 'Usuwanie...'
   }
 }

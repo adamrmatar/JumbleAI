@@ -511,6 +511,8 @@ export default {
     'Remove emoji pack failed': 'Échec de la suppression du pack d\'emojis',
     Added: 'Ajouté',
     'Emoji Packs': 'Packs d\'Emojis',
-    'My Packs': 'Mes Packs'
+    'My Packs': 'Mes Packs',
+    'Adding...': 'Ajout...',
+    'Removing...': 'Suppression...'
   }
 }

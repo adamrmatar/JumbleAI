@@ -498,6 +498,8 @@ export default {
     'Remove emoji pack failed': 'فشل إزالة حزمة الرموز التعبيرية',
     Added: 'تمت الإضافة',
     'Emoji Packs': 'حزم الرموز التعبيرية',
-    'My Packs': 'حزمي'
+    'My Packs': 'حزمي',
+    'Adding...': 'جاري الإضافة...',
+    'Removing...': 'جاري الإزالة...'
   }
 }

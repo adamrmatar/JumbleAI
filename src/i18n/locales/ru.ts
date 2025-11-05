@@ -508,6 +508,8 @@ export default {
     'Remove emoji pack failed': 'Не удалось удалить набор эмодзи',
     Added: 'Добавлено',
     'Emoji Packs': 'Наборы эмодзи',
-    'My Packs': 'Мои наборы'
+    'My Packs': 'Мои наборы',
+    'Adding...': 'Добавление...',
+    'Removing...': 'Удаление...'
   }
 }

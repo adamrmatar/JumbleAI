@@ -501,6 +501,8 @@ export default {
     'Remove emoji pack failed': 'حذف بسته ایموجی ناموفق بود',
     Added: 'اضافه شد',
     'Emoji Packs': 'بسته‌های ایموجی',
-    'My Packs': 'بسته‌های من'
+    'My Packs': 'بسته‌های من',
+    'Adding...': 'در حال افزودن...',
+    'Removing...': 'در حال حذف...'
   }
 }
