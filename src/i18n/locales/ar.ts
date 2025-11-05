@@ -491,6 +491,11 @@ export default {
     'Explore Relays': 'استكشف المرحلات',
     'Choose a feed': 'اختر خلاصة',
     'and {{x}} others': 'و {{x}} آخرون',
-    'Emoji Pack': 'حزمة الرموز التعبيرية'
+    'Emoji Pack': 'حزمة الرموز التعبيرية',
+    'Emoji pack added': 'تمت إضافة حزمة الرموز التعبيرية',
+    'Add emoji pack failed': 'فشل إضافة حزمة الرموز التعبيرية',
+    'Emoji pack removed': 'تمت إزالة حزمة الرموز التعبيرية',
+    'Remove emoji pack failed': 'فشل إزالة حزمة الرموز التعبيرية',
+    Added: 'تمت الإضافة'
   }
 }

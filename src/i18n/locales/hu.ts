@@ -490,6 +490,11 @@ export default {
     'Explore Relays': 'Csomópontok felderítése',
     'Choose a feed': 'Válassz hírfolyamot',
     'and {{x}} others': 'és {{x}} másik',
-    'Emoji Pack': 'Emoji csomag'
+    'Emoji Pack': 'Emoji csomag',
+    'Emoji pack added': 'Emoji csomag hozzáadva',
+    'Add emoji pack failed': 'Emoji csomag hozzáadása sikertelen',
+    'Emoji pack removed': 'Emoji csomag eltávolítva',
+    'Remove emoji pack failed': 'Emoji csomag eltávolítása sikertelen',
+    Added: 'Hozzáadva'
   }
 }

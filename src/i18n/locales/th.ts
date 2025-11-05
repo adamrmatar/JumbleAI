@@ -489,6 +489,11 @@ export default {
     'Explore Relays': 'สำรวจรีเลย์',
     'Choose a feed': 'เลือกฟีด',
     'and {{x}} others': 'และอื่น ๆ {{x}} รายการ',
-    'Emoji Pack': 'แพ็คอีโมจิ'
+    'Emoji Pack': 'แพ็คอีโมจิ',
+    'Emoji pack added': 'เพิ่มแพ็คอีโมจิแล้ว',
+    'Add emoji pack failed': 'การเพิ่มแพ็คอีโมจิล้มเหลว',
+    'Emoji pack removed': 'ลบแพ็คอีโมจิแล้ว',
+    'Remove emoji pack failed': 'การลบแพ็คอีโมจิล้มเหลว',
+    Added: 'เพิ่มแล้ว'
   }
 }

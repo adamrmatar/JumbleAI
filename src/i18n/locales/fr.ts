@@ -504,6 +504,11 @@ export default {
     'Explore Relays': 'Explorer les relais',
     'Choose a feed': 'Choisir un fil',
     'and {{x}} others': 'et {{x}} autres',
-    'Emoji Pack': 'Pack d\'Emojis'
+    'Emoji Pack': 'Pack d\'Emojis',
+    'Emoji pack added': 'Pack d\'emojis ajouté',
+    'Add emoji pack failed': 'Échec de l\'ajout du pack d\'emojis',
+    'Emoji pack removed': 'Pack d\'emojis supprimé',
+    'Remove emoji pack failed': 'Échec de la suppression du pack d\'emojis',
+    Added: 'Ajouté'
   }
 }

@@ -496,6 +496,11 @@ export default {
     'Explore Relays': 'रिले एक्सप्लोर करें',
     'Choose a feed': 'एक फीड चुनें',
     'and {{x}} others': 'और {{x}} अन्य',
-    'Emoji Pack': 'इमोजी पैक'
+    'Emoji Pack': 'इमोजी पैक',
+    'Emoji pack added': 'इमोजी पैक जोड़ा गया',
+    'Add emoji pack failed': 'इमोजी पैक जोड़ना विफल रहा',
+    'Emoji pack removed': 'इमोजी पैक हटाया गया',
+    'Remove emoji pack failed': 'इमोजी पैक हटाना विफल रहा',
+    Added: 'जोड़ा गया'
   }
 }

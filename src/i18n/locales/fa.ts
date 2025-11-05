@@ -494,6 +494,11 @@ export default {
     'Explore Relays': 'کاوش در رله‌ها',
     'Choose a feed': 'یک فید انتخاب کنید',
     'and {{x}} others': 'و {{x}} دیگر',
-    'Emoji Pack': 'بسته ایموجی'
+    'Emoji Pack': 'بسته ایموجی',
+    'Emoji pack added': 'بسته ایموجی اضافه شد',
+    'Add emoji pack failed': 'افزودن بسته ایموجی ناموفق بود',
+    'Emoji pack removed': 'بسته ایموجی حذف شد',
+    'Remove emoji pack failed': 'حذف بسته ایموجی ناموفق بود',
+    Added: 'اضافه شد'
   }
 }

@@ -495,6 +495,11 @@ export default {
     'Explore Relays': '릴레이 탐색',
     'Choose a feed': '피드 선택',
     'and {{x}} others': '및 기타 {{x}}명',
-    'Emoji Pack': '이모지 팩'
+    'Emoji Pack': '이모지 팩',
+    'Emoji pack added': '이모지 팩이 추가되었습니다',
+    'Add emoji pack failed': '이모지 팩 추가 실패',
+    'Emoji pack removed': '이모지 팩이 제거되었습니다',
+    'Remove emoji pack failed': '이모지 팩 제거 실패',
+    Added: '추가됨'
   }
 }

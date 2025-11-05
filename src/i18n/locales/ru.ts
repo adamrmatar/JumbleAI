@@ -501,6 +501,11 @@ export default {
     'Explore Relays': 'Исследовать Relay',
     'Choose a feed': 'Выберите ленту',
     'and {{x}} others': 'и {{x}} других',
-    'Emoji Pack': 'Набор эмодзи'
+    'Emoji Pack': 'Набор эмодзи',
+    'Emoji pack added': 'Набор эмодзи добавлен',
+    'Add emoji pack failed': 'Не удалось добавить набор эмодзи',
+    'Emoji pack removed': 'Набор эмодзи удален',
+    'Remove emoji pack failed': 'Не удалось удалить набор эмодзи',
+    Added: 'Добавлено'
   }
 }

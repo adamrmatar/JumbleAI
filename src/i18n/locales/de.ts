@@ -505,6 +505,11 @@ export default {
     'Explore Relays': 'Relays erkunden',
     'Choose a feed': 'Wähle einen Feed',
     'and {{x}} others': 'und {{x}} andere',
-    'Emoji Pack': 'Emoji-Paket'
+    'Emoji Pack': 'Emoji-Paket',
+    'Emoji pack added': 'Emoji-Paket hinzugefügt',
+    'Add emoji pack failed': 'Hinzufügen des Emoji-Pakets fehlgeschlagen',
+    'Emoji pack removed': 'Emoji-Paket entfernt',
+    'Remove emoji pack failed': 'Entfernen des Emoji-Pakets fehlgeschlagen',
+    Added: 'Hinzugefügt'
   }
 }

@@ -490,6 +490,11 @@ export default {
     'Explore Relays': 'Explore Relays',
     'Choose a feed': 'Choose a feed',
     'and {{x}} others': 'and {{x}} others',
-    'Emoji Pack': 'Emoji Pack'
+    'Emoji Pack': 'Emoji Pack',
+    'Emoji pack added': 'Emoji pack added',
+    'Add emoji pack failed': 'Add emoji pack failed',
+    'Emoji pack removed': 'Emoji pack removed',
+    'Remove emoji pack failed': 'Remove emoji pack failed',
+    Added: 'Added'
   }
 }

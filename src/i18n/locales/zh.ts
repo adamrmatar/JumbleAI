@@ -487,6 +487,11 @@ export default {
     'Explore Relays': '探索服务器',
     'Choose a feed': '选择一个动态',
     'and {{x}} others': '和其他 {{x}} 人',
-    'Emoji Pack': '表情包'
+    'Emoji Pack': '表情包',
+    'Emoji pack added': '表情包已添加',
+    'Add emoji pack failed': '添加表情包失败',
+    'Emoji pack removed': '表情包已移除',
+    'Remove emoji pack failed': '移除表情包失败',
+    Added: '已添加'
   }
 }

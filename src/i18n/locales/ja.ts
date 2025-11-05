@@ -495,6 +495,11 @@ export default {
     'Explore Relays': 'リレーを探索',
     'Choose a feed': 'フィードを選択',
     'and {{x}} others': 'および他{{x}}人',
-    'Emoji Pack': '絵文字パック'
+    'Emoji Pack': '絵文字パック',
+    'Emoji pack added': '絵文字パックを追加しました',
+    'Add emoji pack failed': '絵文字パックの追加に失敗しました',
+    'Emoji pack removed': '絵文字パックを削除しました',
+    'Remove emoji pack failed': '絵文字パックの削除に失敗しました',
+    Added: '追加済み'
   }
 }
