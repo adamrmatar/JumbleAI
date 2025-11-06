@@ -759,6 +759,11 @@ class ClientService extends EventTarget {
         if (cache) {
           return cache
         }
+        const indexedDbCache = await indexedDb.getReplaceableEventByCoordinate(coordinate)
+        if (indexedDbCache) {
+          this.replaceableEventCacheMap.set(coordinate, indexedDbCache)
+          return indexedDbCache
+        }
       } else if (eventId) {
         const cache = this.eventCacheMap.get(eventId)
         if (cache) {
