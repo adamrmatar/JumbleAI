@@ -542,6 +542,7 @@ export default {
     'Failed to get invite code from relay': 'Nie udało się uzyskać kodu zaproszenia z przekaźnika',
     'Failed to get invite code': 'Nie udało się uzyskać kodu zaproszenia',
     'Invite code copied to clipboard': 'Kod zaproszenia skopiowany do schowka',
-    'Click to load X post': 'Kliknij, aby załadować post X'
+    'Click to load X post': 'Kliknij, aby załadować post X',
+    'View Nostr comments': 'Wyświetl komentarze Nostr'
   }
 }

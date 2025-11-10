@@ -547,6 +547,7 @@ export default {
     'Failed to get invite code from relay': "Échec de l'obtention du code d'invitation du relay",
     'Failed to get invite code': "Échec de l'obtention du code d'invitation",
     'Invite code copied to clipboard': "Code d'invitation copié dans le presse-papiers",
-    'Click to load X post': 'Cliquez pour charger la publication X'
+    'Click to load X post': 'Cliquez pour charger la publication X',
+    'View Nostr comments': 'Voir les commentaires Nostr'
   }
 }

@@ -533,6 +533,7 @@ export default {
     Close: 'Close',
     'Failed to get invite code from relay': 'Failed to get invite code from relay',
     'Failed to get invite code': 'Failed to get invite code',
-    'Invite code copied to clipboard': 'Invite code copied to clipboard'
+    'Invite code copied to clipboard': 'Invite code copied to clipboard',
+    'View Nostr comments': 'View Nostr comments'
   }
 }

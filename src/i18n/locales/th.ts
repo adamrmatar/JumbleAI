@@ -530,6 +530,7 @@ export default {
     'Failed to get invite code from relay': 'ไม่สามารถรับรหัสเชิญจากรีเลย์',
     'Failed to get invite code': 'ไม่สามารถรับรหัสเชิญ',
     'Invite code copied to clipboard': 'คัดลอกรหัสเชิญไปยังคลิปบอร์ดแล้ว',
-    'Click to load X post': 'คลิกเพื่อโหลดโพสต์ X'
+    'Click to load X post': 'คลิกเพื่อโหลดโพสต์ X',
+    'View Nostr comments': 'ดูความคิดเห็น Nostr'
   }
 }

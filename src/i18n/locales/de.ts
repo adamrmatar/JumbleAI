@@ -548,6 +548,7 @@ export default {
     'Failed to get invite code from relay': 'Fehler beim Abrufen des Einladungscodes vom Relay',
     'Failed to get invite code': 'Fehler beim Abrufen des Einladungscodes',
     'Invite code copied to clipboard': 'Einladungscode in die Zwischenablage kopiert',
-    'Click to load X post': 'Klicken Sie, um X-Beitrag zu laden'
+    'Click to load X post': 'Klicken Sie, um X-Beitrag zu laden',
+    'View Nostr comments': 'Nostr-Kommentare anzeigen'
   }
 }

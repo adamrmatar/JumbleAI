@@ -532,6 +532,7 @@ export default {
     'Failed to get invite code from relay': 'فشل الحصول على رمز الدعوة من المرحل',
     'Failed to get invite code': 'فشل الحصول على رمز الدعوة',
     'Invite code copied to clipboard': 'تم نسخ رمز الدعوة إلى الحافظة',
-    'Click to load X post': 'انقر لتحميل منشور X'
+    'Click to load X post': 'انقر لتحميل منشور X',
+    'View Nostr comments': 'عرض تعليقات Nostr'
   }
 }

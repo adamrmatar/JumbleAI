@@ -544,6 +544,7 @@ export default {
     'Failed to get invite code from relay': 'Не удалось получить код приглашения от релея',
     'Failed to get invite code': 'Не удалось получить код приглашения',
     'Invite code copied to clipboard': 'Код приглашения скопирован в буфер обмена',
-    'Click to load X post': 'Нажмите, чтобы загрузить пост X'
+    'Click to load X post': 'Нажмите, чтобы загрузить пост X',
+    'View Nostr comments': 'Просмотреть комментарии Nostr'
   }
 }

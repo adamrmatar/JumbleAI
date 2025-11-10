@@ -536,6 +536,7 @@ export default {
     'Failed to get invite code from relay': 'リレーから招待コードの取得に失敗しました',
     'Failed to get invite code': '招待コードの取得に失敗しました',
     'Invite code copied to clipboard': '招待コードをクリップボードにコピーしました',
-    'Click to load X post': 'クリックしてX投稿を読み込む'
+    'Click to load X post': 'クリックしてX投稿を読み込む',
+    'View Nostr comments': 'Nostrコメントを表示'
   }
 }

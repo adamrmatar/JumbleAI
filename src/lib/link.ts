@@ -62,6 +62,7 @@ export const toSearch = (params?: TSearchParams) => {
   }
   return `/search?${query.toString()}`
 }
+export const toExternalContent = (id: string) => `/external-content?id=${encodeURIComponent(id)}`
 export const toSettings = () => '/settings'
 export const toRelaySettings = (tag?: 'mailbox' | 'favorite-relays') => {
   return '/settings/relays' + (tag ? '#' + tag : '')

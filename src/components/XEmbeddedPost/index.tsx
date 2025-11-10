@@ -1,6 +1,9 @@
+import { toExternalContent } from '@/lib/link'
+import { useSecondaryPage } from '@/PageManager'
 import { useContentPolicy } from '@/providers/ContentPolicyProvider'
 import { useTheme } from '@/providers/ThemeProvider'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { MessageCircle } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ExternalLink from '../ExternalLink'
 
@@ -16,6 +19,7 @@ export default function XEmbeddedPost({
   const { t } = useTranslation()
   const { theme } = useTheme()
   const { autoLoadMedia } = useContentPolicy()
+  const { push } = useSecondaryPage()
   const [display, setDisplay] = useState(autoLoadMedia)
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
@@ -74,6 +78,14 @@ export default function XEmbeddedPost({
     }
   }, [tweetId, display, mustLoad, loaded, theme])
 
+  const handleViewComments = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      push(toExternalContent(url))
+    },
+    [url, push]
+  )
+
   if (error || !tweetId) {
     return <ExternalLink url={url} />
   }
@@ -92,7 +104,30 @@ export default function XEmbeddedPost({
     )
   }
 
-  return <div ref={containerRef} className={className} />
+  return (
+    <div className={className}>
+      <div
+        className="relative group"
+        style={{
+          maxWidth: '550px'
+        }}
+      >
+        <div ref={containerRef} className="cursor-pointer" onClick={handleViewComments} />
+        {loaded && (
+          /* Hover overlay mask */
+          <div
+            className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center cursor-pointer rounded-xl"
+            onClick={handleViewComments}
+          >
+            <div className="flex flex-col items-center gap-3 text-white">
+              <MessageCircle className="size-12" strokeWidth={1.5} />
+              <span className="text-lg font-medium">{t('View Nostr comments')}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
 
 function parseXUrl(url: string): { tweetId: string | null } {
