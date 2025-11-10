@@ -526,6 +526,7 @@ export default {
     Close: '关闭',
     'Failed to get invite code from relay': '从中继器获取邀请码失败',
     'Failed to get invite code': '获取邀请码失败',
-    'Invite code copied to clipboard': '邀请码已复制到剪贴板'
+    'Invite code copied to clipboard': '邀请码已复制到剪贴板',
+    'Click to load X post': '点击加载 X 帖子'
   }
 }

@@ -407,6 +407,7 @@ export default {
     'Click to load image': 'Click to load image',
     'Click to load media': 'Click to load media',
     'Click to load YouTube video': 'Click to load YouTube video',
+    'Click to load X post': 'Click to load X post',
     '{{count}} reviews': '{{count}} reviews',
     'Write a review': 'Write a review',
     'No reviews yet. Be the first to write one!': 'No reviews yet. Be the first to write one!',

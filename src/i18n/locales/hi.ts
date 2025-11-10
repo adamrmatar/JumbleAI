@@ -538,6 +538,7 @@ export default {
     Close: 'बंद करें',
     'Failed to get invite code from relay': 'रिले से निमंत्रण कोड प्राप्त करने में विफल',
     'Failed to get invite code': 'निमंत्रण कोड प्राप्त करने में विफल',
-    'Invite code copied to clipboard': 'निमंत्रण कोड क्लिपबोर्ड पर कॉपी किया गया'
+    'Invite code copied to clipboard': 'निमंत्रण कोड क्लिपबोर्ड पर कॉपी किया गया',
+    'Click to load X post': 'X पोस्ट लोड करने के लिए क्लिक करें'
   }
 }
