@@ -12,7 +12,7 @@ import { useFetchEvent } from '@/hooks'
 import SecondaryPageLayout from '@/layouts/SecondaryPageLayout'
 import {
   getEventKey,
-  getEventKeyFromTag,
+  getKeyFromTag,
   getParentBech32Id,
   getParentTag,
   getRootBech32Id
@@ -184,5 +184,5 @@ function isConsecutive(rootEvent?: Event, parentEvent?: Event) {
   const tag = getParentTag(parentEvent)
   if (!tag) return false
 
-  return getEventKey(rootEvent) === getEventKeyFromTag(tag.tag)
+  return getEventKey(rootEvent) === getKeyFromTag(tag.tag)
 }

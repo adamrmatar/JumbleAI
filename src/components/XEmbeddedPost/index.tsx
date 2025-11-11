@@ -1,4 +1,6 @@
+import { Skeleton } from '@/components/ui/skeleton'
 import { toExternalContent } from '@/lib/link'
+import { cn } from '@/lib/utils'
 import { useSecondaryPage } from '@/PageManager'
 import { useContentPolicy } from '@/providers/ContentPolicyProvider'
 import { useTheme } from '@/providers/ThemeProvider'
@@ -107,27 +109,26 @@ export default function XEmbeddedPost({
   }
 
   return (
-    <div className={className}>
-      <div
-        className="relative group"
-        style={{
-          maxWidth: '550px'
-        }}
-      >
-        <div ref={containerRef} className="cursor-pointer" onClick={handleViewComments} />
-        {loaded && embedded && (
-          /* Hover overlay mask */
-          <div
-            className="absolute inset-0 bg-muted/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center cursor-pointer rounded-lg"
-            onClick={handleViewComments}
-          >
-            <div className="flex flex-col items-center gap-3 text-white">
-              <MessageCircle className="size-12" strokeWidth={1.5} />
-              <span className="text-lg font-medium">{t('View Nostr comments')}</span>
-            </div>
+    <div
+      className={cn('relative group', !loaded && 'h-60', className)}
+      style={{
+        maxWidth: '550px'
+      }}
+    >
+      <div ref={containerRef} className="cursor-pointer" onClick={handleViewComments} />
+      {!loaded && <Skeleton className={cn('absolute inset-0 w-full h-60', className)} />}
+      {loaded && embedded && (
+        /* Hover overlay mask */
+        <div
+          className="absolute inset-0 bg-muted/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center cursor-pointer rounded-lg"
+          onClick={handleViewComments}
+        >
+          <div className="flex flex-col items-center gap-3 text-white">
+            <MessageCircle className="size-12" strokeWidth={1.5} />
+            <span className="text-lg font-medium">{t('View Nostr comments')}</span>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

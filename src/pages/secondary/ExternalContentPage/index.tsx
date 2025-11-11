@@ -1,5 +1,6 @@
 import ExternalContent from '@/components/ExternalContent'
-import ExternalContentStats from '@/components/ExternalContentStats'
+import ReplyNoteList from '@/components/ReplyNoteList'
+import { Separator } from '@/components/ui/separator'
 import SecondaryPageLayout from '@/layouts/SecondaryPageLayout'
 import { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -26,10 +27,11 @@ const ExternalContentPage = forwardRef(({ index }: { index?: number }, ref) => {
       title={t('External Content')}
       displayScrollToTopButton
     >
-      <div className="px-4 pt-3">
+      <div className="px-4 mt-4">
         <ExternalContent content={id} />
-        <ExternalContentStats className="mt-3" externalContentId={id} />
       </div>
+      <Separator className="mt-4" />
+      <ReplyNoteList index={index} externalContent={id} />
     </SecondaryPageLayout>
   )
 })
