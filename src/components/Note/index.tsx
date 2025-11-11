@@ -18,6 +18,7 @@ import ParentNotePreview from '../ParentNotePreview'
 import TranslateButton from '../TranslateButton'
 import UserAvatar from '../UserAvatar'
 import Username from '../Username'
+import { NossieButton, NossieDialog } from '../nossie'
 import CommunityDefinition from './CommunityDefinition'
 import EmojiPack from './EmojiPack'
 import GroupMetadata from './GroupMetadata'
@@ -59,6 +60,7 @@ export default function Note({
   const [showNsfw, setShowNsfw] = useState(false)
   const { mutePubkeySet } = useMuteList()
   const [showMuted, setShowMuted] = useState(false)
+  const [showNossieDialog, setShowNossieDialog] = useState(false)
 
   let content: React.ReactNode
   if (
@@ -136,6 +138,13 @@ export default function Note({
         </div>
         <div className="flex items-center">
           <TranslateButton event={event} className={size === 'normal' ? '' : 'pr-0'} />
+          <NossieButton
+            eventId={event.id}
+            content={event.content}
+            authorPubkey={event.pubkey}
+            onClick={() => setShowNossieDialog(true)}
+            className={size === 'normal' ? '' : 'pr-0'}
+          />
           {size === 'normal' && (
             <NoteOptions event={event} className="py-1 shrink-0 [&_svg]:size-5" />
           )}
@@ -153,6 +162,14 @@ export default function Note({
       )}
       <IValue event={event} className="mt-2" />
       {content}
+
+      <NossieDialog
+        open={showNossieDialog}
+        onOpenChange={setShowNossieDialog}
+        eventId={event.id}
+        content={event.content}
+        authorPubkey={event.pubkey}
+      />
     </div>
   )
 }

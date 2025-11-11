@@ -4,6 +4,7 @@ import {
   toAppearanceSettings,
   toEmojiPackSettings,
   toGeneralSettings,
+  toNossieSettings,
   toPostSettings,
   toRelaySettings,
   toTranslation,
@@ -24,6 +25,7 @@ import {
   Server,
   Settings2,
   Smile,
+  Sparkles,
   Wallet
 } from 'lucide-react'
 import { forwardRef, HTMLProps, useState } from 'react'
@@ -68,6 +70,13 @@ export default function Settings() {
           <ChevronRight />
         </SettingItem>
       )}
+      <SettingItem className="clickable" onClick={() => push(toNossieSettings())}>
+        <div className="flex items-center gap-4">
+          <Sparkles />
+          <div>Nossie AI</div>
+        </div>
+        <ChevronRight />
+      </SettingItem>
       {!!pubkey && (
         <SettingItem className="clickable" onClick={() => push(toWallet())}>
           <div className="flex items-center gap-4">

@@ -1,6 +1,7 @@
 import 'yet-another-react-lightbox/styles.css'
 import './index.css'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from '@/components/ui/sonner'
 import { BookmarksProvider } from '@/providers/BookmarksProvider'
 import { ContentPolicyProvider } from '@/providers/ContentPolicyProvider'
@@ -23,47 +24,58 @@ import { UserTrustProvider } from '@/providers/UserTrustProvider'
 import { ZapProvider } from '@/providers/ZapProvider'
 import { PageManager } from './PageManager'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+})
+
 export default function App(): JSX.Element {
   return (
-    <ScreenSizeProvider>
-      <UserPreferencesProvider>
-        <ThemeProvider>
-          <ContentPolicyProvider>
-            <DeletedEventProvider>
-              <NostrProvider>
-                <ZapProvider>
-                  <TranslationServiceProvider>
-                    <FavoriteRelaysProvider>
-                      <FollowListProvider>
-                        <MuteListProvider>
-                          <UserTrustProvider>
-                            <BookmarksProvider>
-                              <EmojiPackProvider>
-                                <PinListProvider>
-                                  <FeedProvider>
-                                    <ReplyProvider>
-                                      <MediaUploadServiceProvider>
-                                        <KindFilterProvider>
-                                          <PageManager />
-                                          <Toaster />
-                                        </KindFilterProvider>
-                                      </MediaUploadServiceProvider>
-                                    </ReplyProvider>
-                                  </FeedProvider>
-                                </PinListProvider>
-                              </EmojiPackProvider>
-                            </BookmarksProvider>
-                          </UserTrustProvider>
-                        </MuteListProvider>
-                      </FollowListProvider>
-                    </FavoriteRelaysProvider>
-                  </TranslationServiceProvider>
-                </ZapProvider>
-              </NostrProvider>
-            </DeletedEventProvider>
-          </ContentPolicyProvider>
-        </ThemeProvider>
-      </UserPreferencesProvider>
-    </ScreenSizeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ScreenSizeProvider>
+        <UserPreferencesProvider>
+          <ThemeProvider>
+            <ContentPolicyProvider>
+              <DeletedEventProvider>
+                <NostrProvider>
+                  <ZapProvider>
+                    <TranslationServiceProvider>
+                      <FavoriteRelaysProvider>
+                        <FollowListProvider>
+                          <MuteListProvider>
+                            <UserTrustProvider>
+                              <BookmarksProvider>
+                                <EmojiPackProvider>
+                                  <PinListProvider>
+                                    <FeedProvider>
+                                      <ReplyProvider>
+                                        <MediaUploadServiceProvider>
+                                          <KindFilterProvider>
+                                            <PageManager />
+                                            <Toaster />
+                                          </KindFilterProvider>
+                                        </MediaUploadServiceProvider>
+                                      </ReplyProvider>
+                                    </FeedProvider>
+                                  </PinListProvider>
+                                </EmojiPackProvider>
+                              </BookmarksProvider>
+                            </UserTrustProvider>
+                          </MuteListProvider>
+                        </FollowListProvider>
+                      </FavoriteRelaysProvider>
+                    </TranslationServiceProvider>
+                  </ZapProvider>
+                </NostrProvider>
+              </DeletedEventProvider>
+            </ContentPolicyProvider>
+          </ThemeProvider>
+        </UserPreferencesProvider>
+      </ScreenSizeProvider>
+    </QueryClientProvider>
   )
 }

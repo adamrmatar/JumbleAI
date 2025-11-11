@@ -4,6 +4,7 @@ import EmojiPackSettingsPage from '@/pages/secondary/EmojiPackSettingsPage'
 import FollowingListPage from '@/pages/secondary/FollowingListPage'
 import GeneralSettingsPage from '@/pages/secondary/GeneralSettingsPage'
 import MuteListPage from '@/pages/secondary/MuteListPage'
+import NossieSettings from '@/pages/secondary/NossieSettings'
 import NoteListPage from '@/pages/secondary/NoteListPage'
 import NotePage from '@/pages/secondary/NotePage'
 import OthersRelaySettingsPage from '@/pages/secondary/OthersRelaySettingsPage'
@@ -40,6 +41,7 @@ const SECONDARY_ROUTE_CONFIGS = [
   { path: '/settings/general', element: <GeneralSettingsPage /> },
   { path: '/settings/appearance', element: <AppearanceSettingsPage /> },
   { path: '/settings/translation', element: <TranslationPage /> },
+  { path: '/settings/nossie', element: <NossieSettings /> },
   { path: '/settings/emoji-packs', element: <EmojiPackSettingsPage /> },
   { path: '/profile-editor', element: <ProfileEditorPage /> },
   { path: '/mutes', element: <MuteListPage /> },
