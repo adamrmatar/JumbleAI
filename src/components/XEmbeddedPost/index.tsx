@@ -110,13 +110,14 @@ export default function XEmbeddedPost({
 
   return (
     <div
-      className={cn('relative group', !loaded && 'h-60', className)}
+      className={cn('relative group', className)}
       style={{
-        maxWidth: '550px'
+        maxWidth: '550px',
+        minHeight: '225px'
       }}
     >
       <div ref={containerRef} className="cursor-pointer" onClick={handleViewComments} />
-      {!loaded && <Skeleton className={cn('absolute inset-0 w-full h-60', className)} />}
+      {!loaded && <Skeleton className={cn('absolute inset-0 w-full h-full', className)} />}
       {loaded && embedded && (
         /* Hover overlay mask */
         <div
