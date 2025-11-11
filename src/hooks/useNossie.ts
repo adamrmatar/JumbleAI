@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState, useCallback } from 'react'
 import { NossieAnalysisRequest, NossieAnalysisResponse, NossieConfig, NossieConversation, NossieTestConfigRequest, NossieTestConfigResponse } from '@/types/nossie'
 import { NOSSIE_DEFAULT_CONFIG, NOSSIE_SUPPORTED_PROVIDERS, NOSSIE_SYSTEM_PROMPT, NOSSIE_API_TIMEOUT } from '@/config/nossie'
-import { buildAnalysisPrompt, buildFollowUpPrompt, validateNossieResponse } from '@/lib/nossiePrompts'
+import { buildAnalysisPrompt, buildFollowUpPrompt, formatThreadContext, validateNossieResponse } from '@/lib/nossiePrompts'
 import client from '@/services/client.service'
 import { BIG_RELAY_URLS } from '@/constants'
 import { Event, kinds } from 'nostr-tools'
@@ -214,7 +214,7 @@ export function useNossie() {
         threadContext = await fetchThreadContext(request.eventId, request.authorPubkey)
       }
 
-      const prompt = buildAnalysisPrompt({ ...request, threadContext })
+      const prompt = await buildAnalysisPrompt({ ...request, threadContext })
 
       try {
         if (config.provider === 'openai') {

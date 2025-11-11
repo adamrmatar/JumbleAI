@@ -1,6 +1,6 @@
 import { kinds } from 'nostr-tools'
 
-export const JUMBLE_API_BASE_URL = 'https://api.jumble.social'
+export const JUMBLE_API_BASE_URL = 'https://api.jumbleai.social'
 
 export const RECOMMENDED_BLOSSOM_SERVERS = [
   'https://blossom.band/',

@@ -1,7 +1,7 @@
 {
-  "name": "jumble",
+  "name": "jumbleai",
   "version": "0.1.0",
-  "description": "A user-friendly Nostr client for exploring relay feeds",
+  "description": "An AI-powered Nostr client with intelligent analysis",
   "private": true,
   "type": "module",
   "author": "codytseng",
