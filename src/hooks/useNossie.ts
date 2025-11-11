@@ -3,7 +3,8 @@ import { useState, useCallback } from 'react'
 import { NossieAnalysisRequest, NossieAnalysisResponse, NossieConfig, NossieConversation, NossieTestConfigRequest, NossieTestConfigResponse } from '@/types/nossie'
 import { NOSSIE_DEFAULT_CONFIG, NOSSIE_SUPPORTED_PROVIDERS, NOSSIE_SYSTEM_PROMPT, NOSSIE_API_TIMEOUT } from '@/config/nossie'
 import { buildAnalysisPrompt, buildFollowUpPrompt, validateNossieResponse } from '@/lib/nossiePrompts'
-import { useNostr } from '@/providers/NostrProvider'
+import client from '@/services/client.service'
+import { BIG_RELAY_URLS } from '@/constants'
 import { Event, kinds } from 'nostr-tools'
 
 const STORAGE_KEYS = {
@@ -13,7 +14,6 @@ const STORAGE_KEYS = {
 
 export function useNossie() {
   const queryClient = useQueryClient()
-  const { nostr } = useNostr()
   const [config, setConfig] = useState<NossieConfig>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.CONFIG)
@@ -60,13 +60,13 @@ export function useNossie() {
 
   // Fetch thread context
   const fetchThreadContext = useCallback(async (eventId: string, authorPubkey: string) => {
-    if (!nostr) throw new Error('Nostr client not available')
+    if (!client) throw new Error('Nostr client not available')
 
     const sevenDaysAgo = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60
 
     try {
       // Get the main event
-      const mainEvent = await nostr.fetchEvent(eventId)
+      const mainEvent = await client.fetchEvent(eventId)
       if (!mainEvent) throw new Error('Event not found')
 
       // Fetch parent posts using 'e' tags
@@ -75,7 +75,7 @@ export function useNossie() {
 
       for (const tag of parentTags) {
         try {
-          const parentEvent = await nostr.fetchEvent(tag[1])
+          const parentEvent = await client.fetchEvent(tag[1])
           if (parentEvent) {
             parentPosts.push({
               id: parentEvent.id,
@@ -92,7 +92,7 @@ export function useNossie() {
       // Fetch replies using '#e' filter
       const replies: Array<{ id: string; content: string; author: string; timestamp: number }> = []
       try {
-        const replyEvents = await nostr.fetchEvents({
+        const replyEvents = await client.fetchEvents(BIG_RELAY_URLS, {
           kinds: [kinds.ShortTextNote, kinds.Repost],
           '#e': [eventId],
           since: sevenDaysAgo,
@@ -114,7 +114,7 @@ export function useNossie() {
       // Fetch author's recent posts
       const authorRecentPosts: Array<{ id: string; content: string; timestamp: number }> = []
       try {
-        const authorEvents = await nostr.fetchEvents({
+        const authorEvents = await client.fetchEvents(BIG_RELAY_URLS, {
           kinds: [kinds.ShortTextNote],
           authors: [authorPubkey],
           since: sevenDaysAgo,
