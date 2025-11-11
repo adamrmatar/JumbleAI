@@ -5,7 +5,6 @@ import { NOSSIE_DEFAULT_CONFIG, NOSSIE_SUPPORTED_PROVIDERS, NOSSIE_SYSTEM_PROMPT
 import { buildAnalysisPrompt, buildFollowUpPrompt, validateNossieResponse } from '@/lib/nossiePrompts'
 import { useNostr } from '@/providers/NostrProvider'
 import { Event, kinds } from 'nostr-tools'
-import localStorageService from '@/services/local-storage.service'
 
 const STORAGE_KEYS = {
   CONFIG: 'nossie_config',
@@ -16,31 +15,47 @@ export function useNossie() {
   const queryClient = useQueryClient()
   const { nostr } = useNostr()
   const [config, setConfig] = useState<NossieConfig>(() => {
-    const saved = localStorageService.getItem(STORAGE_KEYS.CONFIG)
-    return saved ? { ...NOSSIE_DEFAULT_CONFIG, ...saved } : NOSSIE_DEFAULT_CONFIG
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.CONFIG)
+      return saved ? { ...NOSSIE_DEFAULT_CONFIG, ...JSON.parse(saved) } : NOSSIE_DEFAULT_CONFIG
+    } catch {
+      return NOSSIE_DEFAULT_CONFIG
+    }
   })
 
   // Save config to localStorage whenever it changes
   const updateConfig = useCallback((newConfig: Partial<NossieConfig>) => {
     const updated = { ...config, ...newConfig }
     setConfig(updated)
-    localStorageService.setItem(STORAGE_KEYS.CONFIG, updated)
+    try {
+      localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(updated))
+    } catch (error) {
+      console.error('Failed to save Nossie config:', error)
+    }
   }, [config])
 
   // Load conversations from localStorage
   const { data: conversations = [] } = useQuery({
     queryKey: ['nossie-conversations'],
     queryFn: () => {
-      const saved = localStorageService.getItem(STORAGE_KEYS.CONVERSATIONS)
-      return saved ? JSON.parse(saved) : []
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.CONVERSATIONS)
+        return saved ? JSON.parse(saved) : []
+      } catch {
+        return []
+      }
     },
     initialData: []
   })
 
   // Save conversations to localStorage
   const saveConversations = useCallback((updatedConversations: NossieConversation[]) => {
-    localStorageService.setItem(STORAGE_KEYS.CONVERSATIONS, updatedConversations)
-    queryClient.setQueryData(['nossie-conversations'], updatedConversations)
+    try {
+      localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(updatedConversations))
+      queryClient.setQueryData(['nossie-conversations'], updatedConversations)
+    } catch (error) {
+      console.error('Failed to save Nossie conversations:', error)
+    }
   }, [queryClient])
 
   // Fetch thread context
