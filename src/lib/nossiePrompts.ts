@@ -1,6 +1,5 @@
 import { NossieAnalysisRequest } from '@/types/nossie'
 import { NOSSIE_MAX_CONTEXT_LENGTH } from '@/config/nossie'
-import { BIG_RELAY_URLS } from '@/constants'
 import { getProfileFromEvent } from '@/lib/event-metadata'
 import { formatPubkey, pubkeyToNpub } from '@/lib/pubkey'
 import client from '@/services/client.service'
@@ -9,78 +8,32 @@ import { kinds } from 'nostr-tools'
 // Simple username cache to avoid repeated fetches
 const usernameCache = new Map<string, string>()
 
-// Helper function to safely parse JSON and get username
-function safeParseProfile(content: string): string | null {
-  try {
-    // First, try to validate that it's proper JSON
-    const trimmed = content.trim()
-    if (!trimmed.startsWith('{') || !trimmed.endsWith('}')) {
-      console.log(`[Nossie] Invalid JSON format: ${trimmed.substring(0, 50)}...`)
-      return null
-    }
-    
-    const profileObj = JSON.parse(trimmed)
-    
-    // Extract username safely
-    const username = 
-      profileObj.display_name?.trim() ||
-      profileObj.name?.trim() ||
-      profileObj.nip05?.split('@')[0]?.trim()
-    
-    if (username && typeof username === 'string' && username.length > 0) {
-      // Validate that the username doesn't contain weird characters
-      if (/^[\p{L}\p{N}\p{M}\p{P}\p{S}\s]+$/u.test(username)) {
-        return username
-      }
-    }
-    
-    return null
-  } catch (error) {
-    console.log(`[Nossie] JSON parse error:`, error)
-    return null
-  }
-}
-
-// Helper function to get username from pubkey
+// Helper function to get username from pubkey - simplified approach
 async function getUsername(pubkey: string): Promise<string> {
   try {
     // Check cache first
     if (usernameCache.has(pubkey)) {
-      const cached = usernameCache.get(pubkey)!
-      console.log(`[Nossie] Using cached username for ${pubkey}: ${cached}`)
-      return cached
+      return usernameCache.get(pubkey)!
     }
 
-    console.log(`[Nossie] Getting username for pubkey: ${pubkey}`)
-
-    // Try to fetch profile event (kind 0) from relays
-    const profileEvents = await client.fetchEvents(BIG_RELAY_URLS, {
-      kinds: [kinds.Metadata],
-      authors: [pubkey],
-      limit: 1
-    })
-
-    if (profileEvents.length > 0) {
-      const profileEvent = profileEvents[0]
-      console.log(`[Nossie] Found profile event for ${pubkey}`)
-      
-      // Try to parse the profile content safely
-      const username = safeParseProfile(profileEvent.content)
-      if (username) {
-        console.log(`[Nossie] Using username: ${username}`)
-        usernameCache.set(pubkey, username)
-        return username
-      }
+    // For now, use a simple clean format until we fix the underlying issue
+    const npub = pubkeyToNpub(pubkey)
+    if (npub) {
+      // Use first 8 characters of npub as a simple identifier
+      const simpleName = npub.substring(0, 8) + '...'
+      console.log(`[Nossie] Using simple name for ${pubkey}: ${simpleName}`)
+      usernameCache.set(pubkey, simpleName)
+      return simpleName
     }
-
-    // Fallback to clean formatted pubkey
-    const fallback = formatPubkey(pubkey)
-    console.log(`[Nossie] Using fallback username: ${fallback}`)
+    
+    // Fallback to first 4 + last 4 of pubkey
+    const fallback = pubkey.substring(0, 4) + '...' + pubkey.substring(-4)
+    console.log(`[Nossie] Using fallback name for ${pubkey}: ${fallback}`)
     usernameCache.set(pubkey, fallback)
     return fallback
   } catch (error) {
     console.log(`[Nossie] Error getting username for ${pubkey}:`, error)
-    const fallback = formatPubkey(pubkey)
+    const fallback = pubkey.substring(0, 4) + '...' + pubkey.substring(-4)
     usernameCache.set(pubkey, fallback)
     return fallback
   }
@@ -116,7 +69,7 @@ export async function formatThreadContext(request: NossieAnalysisRequest): Promi
   // Add replies
   if (request.threadContext?.replies.length) {
     context += 'REPLIES:\n'
-    request.threadContext.replies.forEach((reply, index) => {
+    request.threadContext.replies.forEach((reply, index) {
       const username = replyUsernames[index] || formatPubkey(reply.author)
       context += `Reply ${index + 1} (by ${username}):\n${reply.content}\n\n`
     })
