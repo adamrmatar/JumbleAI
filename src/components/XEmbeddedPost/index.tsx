@@ -10,11 +10,13 @@ import ExternalLink from '../ExternalLink'
 export default function XEmbeddedPost({
   url,
   className,
-  mustLoad = false
+  mustLoad = false,
+  embedded = true
 }: {
   url: string
   className?: string
   mustLoad?: boolean
+  embedded?: boolean
 }) {
   const { t } = useTranslation()
   const { theme } = useTheme()
@@ -113,10 +115,10 @@ export default function XEmbeddedPost({
         }}
       >
         <div ref={containerRef} className="cursor-pointer" onClick={handleViewComments} />
-        {loaded && (
+        {loaded && embedded && (
           /* Hover overlay mask */
           <div
-            className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center cursor-pointer rounded-xl"
+            className="absolute inset-0 bg-muted/30 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center cursor-pointer rounded-lg"
             onClick={handleViewComments}
           >
             <div className="flex flex-col items-center gap-3 text-white">

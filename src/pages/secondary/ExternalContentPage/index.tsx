@@ -1,7 +1,9 @@
 import ExternalContent from '@/components/ExternalContent'
+import ExternalContentStats from '@/components/ExternalContentStats'
 import SecondaryPageLayout from '@/layouts/SecondaryPageLayout'
 import { forwardRef, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import NotFoundPage from '../NotFoundPage'
 
 const ExternalContentPage = forwardRef(({ index }: { index?: number }, ref) => {
   const { t } = useTranslation()
@@ -15,6 +17,8 @@ const ExternalContentPage = forwardRef(({ index }: { index?: number }, ref) => {
     }
   }, [])
 
+  if (!id) return <NotFoundPage index={index} />
+
   return (
     <SecondaryPageLayout
       ref={ref}
@@ -22,7 +26,10 @@ const ExternalContentPage = forwardRef(({ index }: { index?: number }, ref) => {
       title={t('External Content')}
       displayScrollToTopButton
     >
-      <ExternalContent content={id} />
+      <div className="px-4 pt-3">
+        <ExternalContent content={id} />
+        <ExternalContentStats className="mt-3" externalContentId={id} />
+      </div>
     </SecondaryPageLayout>
   )
 })

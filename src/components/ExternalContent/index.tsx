@@ -127,7 +127,13 @@ export default function ExternalContent({
         }
         if (node.type === 'x-post') {
           return (
-            <XEmbeddedPost key={index} url={node.data} className="mt-2" mustLoad={mustLoadMedia} />
+            <XEmbeddedPost
+              key={index}
+              url={node.data}
+              className="mt-2"
+              mustLoad={mustLoadMedia}
+              embedded={false}
+            />
           )
         }
         return null
