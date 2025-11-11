@@ -1,42 +1,12 @@
 import { NossieAnalysisRequest } from '@/types/nossie'
 import { NOSSIE_MAX_CONTEXT_LENGTH } from '@/config/nossie'
-import { getProfileFromEvent } from '@/lib/event-metadata'
-import { formatPubkey, pubkeyToNpub } from '@/lib/pubkey'
-import client from '@/services/client.service'
-import { kinds } from 'nostr-tools'
 
-// Simple username cache to avoid repeated fetches
-const usernameCache = new Map<string, string>()
-
-// Helper function to get username from pubkey - simplified approach
-async function getUsername(pubkey: string): Promise<string> {
-  try {
-    // Check cache first
-    if (usernameCache.has(pubkey)) {
-      return usernameCache.get(pubkey)!
-    }
-
-    // For now, use a simple clean format until we fix the underlying issue
-    const npub = pubkeyToNpub(pubkey)
-    if (npub) {
-      // Use first 8 characters of npub as a simple identifier
-      const simpleName = npub.substring(0, 8) + '...'
-      console.log(`[Nossie] Using simple name for ${pubkey}: ${simpleName}`)
-      usernameCache.set(pubkey, simpleName)
-      return simpleName
-    }
-    
-    // Fallback to first 4 + last 4 of pubkey
-    const fallback = pubkey.substring(0, 4) + '...' + pubkey.substring(-4)
-    console.log(`[Nossie] Using fallback name for ${pubkey}: ${fallback}`)
-    usernameCache.set(pubkey, fallback)
-    return fallback
-  } catch (error) {
-    console.log(`[Nossie] Error getting username for ${pubkey}:`, error)
-    const fallback = pubkey.substring(0, 4) + '...' + pubkey.substring(-4)
-    usernameCache.set(pubkey, fallback)
-    return fallback
-  }
+// Simple function to generate a clean, readable identifier from pubkey
+function getCleanIdentifier(pubkey: string): string {
+  // Use a simple approach: take first 6 characters of pubkey
+  // This avoids any encoding issues and provides consistent, clean identifiers
+  const prefix = pubkey.substring(0, 6)
+  return `user_${prefix}`
 }
 
 export async function formatThreadContext(request: NossieAnalysisRequest): Promise<string> {
@@ -44,34 +14,32 @@ export async function formatThreadContext(request: NossieAnalysisRequest): Promi
 
   console.log(`[Nossie] Formatting thread context for main author: ${request.authorPubkey}`)
 
-  // Get usernames for all pubkeys
-  const [mainAuthorUsername, ...parentUsernames, ...replyUsernames, ...recentAuthorUsernames] = await Promise.all([
-    getUsername(request.authorPubkey),
-    ...request.threadContext?.parentPosts.map(post => getUsername(post.author)) || [],
-    ...request.threadContext?.replies.map(reply => getUsername(reply.author)) || [],
-    ...request.threadContext?.authorRecentPosts.map(post => getUsername(post.author)) || []
-  ])
+  // Generate clean identifiers for all pubkeys
+  const mainAuthorId = getCleanIdentifier(request.authorPubkey)
+  const parentIds = request.threadContext?.parentPosts.map(post => getCleanIdentifier(post.author)) || []
+  const replyIds = request.threadContext?.replies.map(reply => getCleanIdentifier(reply.author)) || []
+  const recentAuthorIds = request.threadContext?.authorRecentPosts.map(post => getCleanIdentifier(post.author)) || []
 
-  console.log(`[Nossie] Main author username: ${mainAuthorUsername}`)
+  console.log(`[Nossie] Main author identifier: ${mainAuthorId}`)
 
   // Add parent posts
   if (request.threadContext?.parentPosts.length) {
     context += 'PARENT POSTS:\n'
     request.threadContext.parentPosts.forEach((post, index) => {
-      const username = parentUsernames[index] || formatPubkey(post.author)
-      context += `Parent ${index + 1} (by ${username}):\n${post.content}\n\n`
+      const identifier = parentIds[index] || getCleanIdentifier(post.author)
+      context += `Parent ${index + 1} (by ${identifier}):\n${post.content}\n\n`
     })
   }
 
   // Add the main post being analyzed
-  context += `MAIN POST (by ${mainAuthorUsername}):\n${request.content}\n\n`
+  context += `MAIN POST (by ${mainAuthorId}):\n${request.content}\n\n`
 
   // Add replies
   if (request.threadContext?.replies.length) {
     context += 'REPLIES:\n'
-    request.threadContext.replies.forEach((reply, index) {
-      const username = replyUsernames[index] || formatPubkey(reply.author)
-      context += `Reply ${index + 1} (by ${username}):\n${reply.content}\n\n`
+    request.threadContext.replies.forEach((reply, index) => {
+      const identifier = replyIds[index] || getCleanIdentifier(reply.author)
+      context += `Reply ${index + 1} (by ${identifier}):\n${reply.content}\n\n`
     })
   }
 
@@ -79,8 +47,8 @@ export async function formatThreadContext(request: NossieAnalysisRequest): Promi
   if (request.threadContext?.authorRecentPosts.length) {
     context += 'AUTHOR RECENT POSTS (last 7 days):\n'
     request.threadContext.authorRecentPosts.forEach((post, index) => {
-      const username = recentAuthorUsernames[index] || formatPubkey(post.author)
-      context += `Recent post ${index + 1} (by ${username}):\n${post.content}\n\n`
+      const identifier = recentAuthorIds[index] || getCleanIdentifier(post.author)
+      context += `Recent post ${index + 1} (by ${identifier}):\n${post.content}\n\n`
     })
   }
 
