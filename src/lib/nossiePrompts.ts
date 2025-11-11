@@ -1,63 +1,45 @@
 import { NossieAnalysisRequest } from '@/types/nossie'
 import { NOSSIE_MAX_CONTEXT_LENGTH } from '@/config/nossie'
 
-// Simple function to generate a clean, readable identifier from pubkey
-function getCleanIdentifier(pubkey: string): string {
-  // Use a simple approach: take first 6 characters of pubkey
-  // This avoids any encoding issues and provides consistent, clean identifiers
-  const prefix = pubkey.substring(0, 6)
-  return `user_${prefix}`
-}
-
 export async function formatThreadContext(request: NossieAnalysisRequest): Promise<string> {
+  // For now, let's completely skip username generation and just use the post content
+  // This will help us isolate where the garbled characters are coming from
+  
   let context = '### THREAD CONTEXT ###\n\n'
-
-  console.log(`[Nossie] Formatting thread context for main author: ${request.authorPubkey}`)
-
-  // Generate clean identifiers for all pubkeys
-  const mainAuthorId = getCleanIdentifier(request.authorPubkey)
-  const parentIds = request.threadContext?.parentPosts.map(post => getCleanIdentifier(post.author)) || []
-  const replyIds = request.threadContext?.replies.map(reply => getCleanIdentifier(reply.author)) || []
-  const recentAuthorIds = request.threadContext?.authorRecentPosts.map(post => getCleanIdentifier(post.author)) || []
-
-  console.log(`[Nossie] Main author identifier: ${mainAuthorId}`)
-
-  // Add parent posts
+  
+  // Add the main post being analyzed - no username references at all
+  context += `MAIN POST:\n${request.content}\n\n`
+  
+  // Add parent posts - no username references
   if (request.threadContext?.parentPosts.length) {
     context += 'PARENT POSTS:\n'
     request.threadContext.parentPosts.forEach((post, index) => {
-      const identifier = parentIds[index] || getCleanIdentifier(post.author)
-      context += `Parent ${index + 1} (by ${identifier}):\n${post.content}\n\n`
+      context += `Parent ${index + 1}:\n${post.content}\n\n`
     })
   }
-
-  // Add the main post being analyzed
-  context += `MAIN POST (by ${mainAuthorId}):\n${request.content}\n\n`
-
-  // Add replies
+  
+  // Add replies - no username references
   if (request.threadContext?.replies.length) {
     context += 'REPLIES:\n'
     request.threadContext.replies.forEach((reply, index) => {
-      const identifier = replyIds[index] || getCleanIdentifier(reply.author)
-      context += `Reply ${index + 1} (by ${identifier}):\n${reply.content}\n\n`
+      context += `Reply ${index + 1}:\n${reply.content}\n\n`
     })
   }
-
-  // Add author's recent posts
+  
+  // Add author's recent posts - no username references
   if (request.threadContext?.authorRecentPosts.length) {
     context += 'AUTHOR RECENT POSTS (last 7 days):\n'
     request.threadContext.authorRecentPosts.forEach((post, index) => {
-      const identifier = recentAuthorIds[index] || getCleanIdentifier(post.author)
-      context += `Recent post ${index + 1} (by ${identifier}):\n${post.content}\n\n`
+      context += `Recent post ${index + 1}:\n${post.content}\n\n`
     })
   }
-
+  
   // Truncate context if it's too long
   if (context.length > NOSSIE_MAX_CONTEXT_LENGTH) {
     context = context.substring(0, NOSSIE_MAX_CONTEXT_LENGTH) + '...[context truncated]'
   }
-
-  console.log(`[Nossie] Final context length: ${context.length} characters`)
+  
+  console.log(`[Nossie] Thread context (no usernames):`, context.substring(0, 200))
   return context
 }
 
@@ -90,7 +72,7 @@ export function buildFollowUpPrompt(
 export function validateNossieResponse(content: string): { valid: boolean; errors: string[] } {
   const errors: string[] = []
 
-  // Check if response ends with the required phrase
+  // Check if response ends with required phrase
   if (!content.trim().endsWith('Would you like me to...')) {
     errors.push('Response must end with "Would you like me to..."')
   }
