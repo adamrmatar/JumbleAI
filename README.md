@@ -7,9 +7,31 @@
 
 # Jumble
 
-A user-friendly Nostr client for exploring relay feeds
+A user-friendly Nostr client for exploring relay feeds with **AI-powered analysis**
 
 Experience Jumble at [https://jumble.social](https://jumble.social)
+
+## 🤖 NEW: Multi-Provider AI Analysis (Nossie)
+
+Jumble now features **Nossie AI** - an intelligent assistant that analyzes Nostr posts with full thread context!
+
+### ✨ 6 AI Providers Supported
+- **OpenAI** - GPT-4o, GPT-4 Turbo, GPT-3.5
+- **Anthropic** - Claude 3.5 Sonnet, Claude 3 Opus
+- **Google AI** - Gemini 2.0 Flash, Gemini 1.5 Pro
+- **Groq** - ⚡ Ultra-fast Llama 3.3 70B (300-800 tokens/sec!)
+- **OpenRouter** - Access 100+ models through one API
+- **Self-Hosted** - 🆓 FREE unlimited AI with Open WebUI/Ollama!
+
+### 🎯 Key Features
+- 🆓 **FREE options** - Groq free tier & self-hosted unlimited
+- 🔒 **100% private** - Self-hosted option keeps data on your device
+- ⚡ **Ultra-fast** - Groq provides 300-800 tokens/second
+- 🌐 **40+ models** - Choose the best AI for your needs
+- 📱 **Easy setup** - Visual guides for all providers
+- 🎛️ **Umbrel support** - Run AI on your Bitcoin node!
+
+[📖 AI Setup Guide](./OPEN_WEBUI_INTEGRATION.md) | [🤔 Which Provider?](./WHICH_AI_PROVIDER.md) | [🔧 Troubleshooting](./TROUBLESHOOTING_AI.md)
 
 ## Forks
 
@@ -53,7 +75,7 @@ After finishing, access: http://localhost:8089
 ## Sponsors
 
 <a target="_blank" href="https://opensats.org/">
-  <img alt="open-sats-logo" src="./resources/open-sats-logo.svg" height="44"> 
+  <img alt="open-sats-logo" src="./resources/open-sats-logo.svg" height="44">
 </a>
 
 ## Donate
