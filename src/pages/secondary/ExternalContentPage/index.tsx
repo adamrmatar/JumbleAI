@@ -1,5 +1,6 @@
 import ExternalContent from '@/components/ExternalContent'
-import ReplyNoteList from '@/components/ReplyNoteList'
+import ExternalContentInteractions from '@/components/ExternalContentInteractions'
+import ExternalContentStats from '@/components/ExternalContentStats'
 import { Separator } from '@/components/ui/separator'
 import SecondaryPageLayout from '@/layouts/SecondaryPageLayout'
 import { forwardRef, useEffect, useState } from 'react'
@@ -29,9 +30,10 @@ const ExternalContentPage = forwardRef(({ index }: { index?: number }, ref) => {
     >
       <div className="px-4 mt-4">
         <ExternalContent content={id} />
+        <ExternalContentStats externalContent={id} />
       </div>
       <Separator className="mt-4" />
-      <ReplyNoteList index={index} externalContent={id} />
+      <ExternalContentInteractions pageIndex={index} externalContent={id} />
     </SecondaryPageLayout>
   )
 })

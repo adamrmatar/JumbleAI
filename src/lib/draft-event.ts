@@ -177,7 +177,7 @@ export function createRelaySetDraftEvent(relaySet: Omit<TRelaySet, 'aTag'>): TDr
 
 export async function createCommentDraftEvent(
   content: string,
-  parentEvent: Event,
+  parentStuff: Event | string,
   mentions: string[],
   options: {
     addClientTag?: boolean
@@ -194,7 +194,8 @@ export async function createCommentDraftEvent(
     rootKind,
     rootPubkey,
     rootUrl
-  } = await extractCommentMentions(transformedEmojisContent, parentEvent)
+  } = await extractCommentMentions(transformedEmojisContent, parentStuff)
+  const parentEvent = typeof parentStuff === 'string' ? undefined : parentStuff
   const hashtags = extractHashtags(transformedEmojisContent)
 
   const tags = emojiTags
@@ -208,7 +209,9 @@ export async function createCommentDraftEvent(
   }
 
   tags.push(
-    ...mentions.filter((pubkey) => pubkey !== parentEvent.pubkey).map((pubkey) => buildPTag(pubkey))
+    ...mentions
+      .filter((pubkey) => pubkey !== parentEvent?.pubkey)
+      .map((pubkey) => buildPTag(pubkey))
   )
 
   if (rootCoordinateTag) {
@@ -226,13 +229,15 @@ export async function createCommentDraftEvent(
     tags.push(buildITag(rootUrl, true))
   }
   tags.push(
-    ...[
-      isReplaceableEvent(parentEvent.kind)
-        ? buildATag(parentEvent)
-        : buildETag(parentEvent.id, parentEvent.pubkey),
-      buildKTag(parentEvent.kind),
-      buildPTag(parentEvent.pubkey)
-    ]
+    ...(parentEvent
+      ? [
+          isReplaceableEvent(parentEvent.kind)
+            ? buildATag(parentEvent)
+            : buildETag(parentEvent.id, parentEvent.pubkey),
+          buildKTag(parentEvent.kind),
+          buildPTag(parentEvent.pubkey)
+        ]
+      : [])
   )
 
   if (options.addClientTag) {
@@ -580,19 +585,29 @@ async function extractRelatedEventIds(content: string, parentEvent?: Event) {
   }
 }
 
-async function extractCommentMentions(content: string, parentEvent: Event) {
+async function extractCommentMentions(content: string, parentStuff: Event | string) {
   const quoteEventHexIds: string[] = []
   const quoteReplaceableCoordinates: string[] = []
-  const isComment = [ExtendedKind.COMMENT, ExtendedKind.VOICE_COMMENT].includes(parentEvent.kind)
-  const rootCoordinateTag = isComment
-    ? parentEvent.tags.find(tagNameEquals('A'))
-    : isReplaceableEvent(parentEvent.kind)
-      ? buildATag(parentEvent, true)
+  const parentEvent = typeof parentStuff === 'string' ? undefined : parentStuff
+  const isComment =
+    parentEvent && [ExtendedKind.COMMENT, ExtendedKind.VOICE_COMMENT].includes(parentEvent.kind)
+  const rootCoordinateTag = parentEvent
+    ? isComment
+      ? parentEvent.tags.find(tagNameEquals('A'))
+      : isReplaceableEvent(parentEvent.kind)
+        ? buildATag(parentEvent, true)
+        : undefined
+    : undefined
+  const rootEventId = isComment ? parentEvent.tags.find(tagNameEquals('E'))?.[1] : parentEvent?.id
+  const rootKind = isComment ? parentEvent.tags.find(tagNameEquals('K'))?.[1] : parentEvent?.kind
+  const rootPubkey = isComment
+    ? parentEvent.tags.find(tagNameEquals('P'))?.[1]
+    : parentEvent?.pubkey
+  const rootUrl = isComment
+    ? parentEvent.tags.find(tagNameEquals('I'))?.[1]
+    : typeof parentStuff === 'string'
+      ? parentStuff
       : undefined
-  const rootEventId = isComment ? parentEvent.tags.find(tagNameEquals('E'))?.[1] : parentEvent.id
-  const rootKind = isComment ? parentEvent.tags.find(tagNameEquals('K'))?.[1] : parentEvent.kind
-  const rootPubkey = isComment ? parentEvent.tags.find(tagNameEquals('P'))?.[1] : parentEvent.pubkey
-  const rootUrl = isComment ? parentEvent.tags.find(tagNameEquals('I'))?.[1] : undefined
 
   const addToSet = (arr: string[], item: string) => {
     if (!arr.includes(item)) arr.push(item)

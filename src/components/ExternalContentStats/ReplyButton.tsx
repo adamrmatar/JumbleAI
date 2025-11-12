@@ -6,13 +6,12 @@ import { useNostr } from '@/providers/NostrProvider'
 import { useReply } from '@/providers/ReplyProvider'
 import { useUserTrust } from '@/providers/UserTrustProvider'
 import { MessageCircle } from 'lucide-react'
-import { Event } from 'nostr-tools'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PostEditor from '../PostEditor'
 import { formatCount } from './utils'
 
-export default function ReplyButton({ event }: { event: Event }) {
+export default function ReplyButton({ externalContent }: { externalContent: string }) {
   const { t } = useTranslation()
   const { pubkey, checkLogin } = useNostr()
   const { repliesMap } = useReply()
@@ -20,13 +19,12 @@ export default function ReplyButton({ event }: { event: Event }) {
   const { mutePubkeySet } = useMuteList()
   const { hideContentMentioningMutedUsers } = useContentPolicy()
   const { replyCount, hasReplied } = useMemo(() => {
-    const key = getEventKey(event)
     const hasReplied = pubkey
-      ? repliesMap.get(key)?.events.some((evt) => evt.pubkey === pubkey)
+      ? repliesMap.get(externalContent)?.events.some((evt) => evt.pubkey === pubkey)
       : false
 
     let replyCount = 0
-    const replies = [...(repliesMap.get(key)?.events || [])]
+    const replies = [...(repliesMap.get(externalContent)?.events || [])]
     while (replies.length > 0) {
       const reply = replies.pop()
       if (!reply) break
@@ -69,7 +67,7 @@ export default function ReplyButton({ event }: { event: Event }) {
         <MessageCircle />
         {!!replyCount && <div className="text-sm">{formatCount(replyCount)}</div>}
       </button>
-      <PostEditor parentStuff={event} open={open} setOpen={setOpen} />
+      <PostEditor parentStuff={externalContent} open={open} setOpen={setOpen} />
     </>
   )
 }
