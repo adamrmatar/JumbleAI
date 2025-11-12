@@ -226,13 +226,19 @@ export function useNossie() {
             }
 
           case 'google':
-            const googleResponse = await fetch(`${config.baseUrl || NOSSIE_SUPPORTED_PROVIDERS.google.baseUrl}/models/${config.model}:generateContent?key=${config.apiKey}`, {
+            const googleApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${config.model}:generateContent?key=${config.apiKey}`
+
+            console.log('🧪 Testing Google API:', googleApiUrl)
+
+            const googleResponse = await fetch(googleApiUrl, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                contents: [{ parts: [{ text: 'test' }] }],
+                contents: [{
+                  parts: [{ text: 'Say "test successful" in 2 words.' }]
+                }],
                 generationConfig: {
                   maxOutputTokens: 10
                 }
@@ -241,16 +247,23 @@ export function useNossie() {
             })
 
             if (!googleResponse.ok) {
-              const error = await googleResponse.json()
+              const errorText = await googleResponse.text()
+              console.error('🧪 Google test error:', errorText)
+              let error
+              try {
+                error = JSON.parse(errorText)
+              } catch {
+                error = { error: { message: errorText } }
+              }
               return {
                 success: false,
-                message: error.error?.message || 'Failed to connect to Google'
+                message: error.error?.message || `Failed to connect to Google (${googleResponse.status})`
               }
             }
 
             return {
               success: true,
-              message: 'Configuration test successful',
+              message: 'Google AI configuration test successful! ✅',
               models: NOSSIE_SUPPORTED_PROVIDERS.google.models
             }
 
@@ -683,14 +696,18 @@ export function useNossie() {
       ? `${NOSSIE_SYSTEM_PROMPT}\n\n${prompt.replace(/CONVERSATION HISTORY:\n\n/, '').replace(/USER:\s*/, '').replace(/\n\nPlease provide a thoughtful follow-up response to continue this conversation./, '')}`
       : `${NOSSIE_SYSTEM_PROMPT}\n\n${prompt}`
 
-    const response = await fetch(`${config.baseUrl || NOSSIE_SUPPORTED_PROVIDERS.google.baseUrl}/models/${config.model}:generateContent?key=${config.apiKey}`, {
+    // Correct Google API URL format
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${config.model}:generateContent?key=${config.apiKey}`
+
+    console.log('🤖 Google API Request URL:', apiUrl)
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         contents: [{
-          role: 'user',
           parts: [{ text }]
         }],
         generationConfig: {
@@ -702,8 +719,15 @@ export function useNossie() {
     })
 
     if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.error?.message || 'Failed to get AI response')
+      const errorText = await response.text()
+      console.error('🤖 Google API Error Response:', errorText)
+      let error
+      try {
+        error = JSON.parse(errorText)
+      } catch {
+        error = { error: { message: errorText } }
+      }
+      throw new Error(error.error?.message || 'Failed to get AI response from Google')
     }
 
     return response
