@@ -69,6 +69,8 @@ export type TRelaySet = {
 export type TConfig = {
   relayGroups: TRelaySet[]
   theme: TThemeSetting
+  /** AI provider configuration */
+  ai?: TAIConfig
 }
 
 export type TThemeSetting = 'light' | 'dark' | 'system' | 'pure-black'
@@ -189,3 +191,27 @@ export type TAwesomeRelayCollection = {
 
 export type TMediaAutoLoadPolicy =
   (typeof MEDIA_AUTO_LOAD_POLICY)[keyof typeof MEDIA_AUTO_LOAD_POLICY]
+
+// AI Configuration Types
+export type TAIProvider = 'openai' | 'anthropic' | 'google' | 'groq' | 'openrouter' | 'self-hosted'
+
+export interface TAIConfig {
+  /** Selected AI provider */
+  provider: TAIProvider
+  /** API key for the selected provider */
+  apiKey?: string
+  /** Model to use (e.g., 'gpt-4', 'claude-3-opus', etc.) */
+  model?: string
+  /** Base URL for self-hosted instances */
+  baseUrl?: string
+}
+
+export interface TAIProviderInfo {
+  name: string
+  description: string
+  apiKeyUrl: string
+  defaultModel: string
+  models: { value: string; label: string }[]
+  supportsImages?: boolean
+  supportsStreaming?: boolean
+}

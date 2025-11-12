@@ -1,5 +1,118 @@
 import { NossieAnalysisRequest } from '@/types/nossie'
-import { NOSSIE_MAX_CONTEXT_LENGTH } from '@/config/nossie'
+
+export const NOSSIE_MAX_CONTEXT_LENGTH = 10000 // 10k characters for context
+
+export const NOSSIE_SUPPORTED_PROVIDERS = {
+  openai: {
+    name: 'OpenAI',
+    description: 'GPT-4 and other models from OpenAI',
+    baseUrl: 'https://api.openai.com/v1',
+    models: [
+      'gpt-4o',
+      'gpt-4o-mini',
+      'gpt-4-turbo',
+      'gpt-3.5-turbo'
+    ],
+    defaultModel: 'gpt-4o-mini',
+    supportsImages: true,
+    supportsStreaming: true,
+    apiKeyUrl: 'https://platform.openai.com/api-keys'
+  },
+  anthropic: {
+    name: 'Anthropic',
+    description: 'Claude 3.5 and other models from Anthropic',
+    baseUrl: 'https://api.anthropic.com/v1',
+    models: [
+      'claude-3-5-sonnet-20241022',
+      'claude-3-5-haiku-20241022',
+      'claude-3-opus-20240229'
+    ],
+    defaultModel: 'claude-3-5-sonnet-20241022',
+    supportsStreaming: true,
+    apiKeyUrl: 'https://console.anthropic.com/settings/keys'
+  },
+  google: {
+    name: 'Google AI',
+    description: 'Gemini models from Google',
+    baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
+    models: [
+      'gemini-2.0-flash-exp',
+      'gemini-1.5-pro',
+      'gemini-1.5-flash',
+      'gemini-1.5-flash-8b'
+    ],
+    defaultModel: 'gemini-1.5-flash',
+    supportsImages: true,
+    supportsStreaming: true,
+    apiKeyUrl: 'https://aistudio.google.com/app/apikey'
+  },
+  groq: {
+    name: 'Groq',
+    description: 'Ultra-fast inference with open source models',
+    baseUrl: 'https://api.groq.com/openai/v1',
+    models: [
+      'llama-3.3-70b-versatile',
+      'llama-3.2-90b-text-preview',
+      'llama-3.2-11b-text-preview',
+      'llama-3.1-70b-versatile',
+      'llama-3.1-8b-instant',
+      'mixtral-8x7b-32768',
+      'gemma2-9b-it'
+    ],
+    defaultModel: 'llama-3.3-70b-versatile',
+    supportsStreaming: true,
+    apiKeyUrl: 'https://console.groq.com/keys'
+  },
+  openrouter: {
+    name: 'OpenRouter',
+    description: 'Access multiple AI models through one API',
+    baseUrl: 'https://openrouter.ai/api/v1',
+    models: [
+      'openai/gpt-4o',
+      'openai/gpt-4o-mini',
+      'anthropic/claude-3.5-sonnet',
+      'anthropic/claude-3-haiku',
+      'google/gemini-pro-1.5',
+      'google/gemini-flash-1.5',
+      'meta-llama/llama-3.1-405b',
+      'meta-llama/llama-3.1-70b',
+      'mistralai/mistral-large'
+    ],
+    defaultModel: 'openai/gpt-4o-mini',
+    supportsStreaming: true,
+    apiKeyUrl: 'https://openrouter.ai/keys'
+  },
+  'self-hosted': {
+    name: 'Self-Hosted (Open WebUI / Ollama)',
+    description: 'Connect to your local LLM server - Open WebUI, Ollama, or any OpenAI-compatible API',
+    baseUrl: '',
+    models: [
+      'default',
+      'llama3.2',
+      'llama3.1',
+      'mistral',
+      'mixtral',
+      'codellama',
+      'phi3',
+      'gemma2',
+      'qwen2.5',
+      'deepseek-coder-v2'
+    ],
+    defaultModel: 'default',
+    supportsStreaming: true,
+    isSelfHosted: true,
+    apiKeyUrl: ''
+  }
+}
+
+export const NOSSIE_DEFAULT_CONFIG = {
+  provider: 'openai' as const,
+  apiKey: '',
+  model: NOSSIE_SUPPORTED_PROVIDERS.openai.defaultModel,
+  baseUrl: undefined
+}
+
+export const NOSSIE_API_TIMEOUT = 30000 // 30 seconds
 
 export const NOSSIE_SYSTEM_PROMPT = `You are Nossie, a helpful, maximally truthful, and slightly wise-ass AI built on Nostr. You utilize API access to various models for analysis.
 

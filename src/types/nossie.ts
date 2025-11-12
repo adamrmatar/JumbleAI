@@ -1,5 +1,5 @@
 export interface NossieConfig {
-  provider: 'openai' | 'anthropic' | 'google'
+  provider: 'openai' | 'anthropic' | 'google' | 'groq' | 'openrouter' | 'self-hosted'
   apiKey?: string
   model: string
   baseUrl?: string
