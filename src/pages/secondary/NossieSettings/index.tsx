@@ -43,11 +43,26 @@ export default forwardRef(function NossieSettings({ index }: { index?: number },
   })
 
   const handleProviderChange = (newProvider: string) => {
+    console.log('🔄 Provider changed to:', newProvider)
     setSelectedProvider(newProvider as any)
     const newProviderData = NOSSIE_SUPPORTED_PROVIDERS[newProvider as keyof typeof NOSSIE_SUPPORTED_PROVIDERS]
-    setSelectedModel(newProviderData.defaultModel)
+
+    if (newProviderData) {
+      setSelectedModel(newProviderData.defaultModel)
+      console.log('✅ Provider data loaded:', {
+        name: newProviderData.name,
+        models: newProviderData.models,
+        defaultModel: newProviderData.defaultModel
+      })
+    } else {
+      console.error('❌ Provider data not found for:', newProvider)
+    }
+
     if (newProvider !== 'self-hosted') {
       setBaseUrl('')
+    } else {
+      // Pre-populate common Open WebUI URL
+      setBaseUrl('http://localhost:3000')
     }
   }
 
@@ -146,16 +161,43 @@ export default forwardRef(function NossieSettings({ index }: { index?: number },
 
                   <Select value={selectedProvider} onValueChange={handleProviderChange}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select provider" />
+                      <SelectValue placeholder="Select provider">
+                        <div className="flex items-center gap-2">
+                          {selectedProvider === 'self-hosted' ? (
+                            <Server className="h-4 w-4 text-orange-500" />
+                          ) : (
+                            <Sparkles className="h-4 w-4 text-purple-500" />
+                          )}
+                          <span>{provider?.name || 'Select provider'}</span>
+                        </div>
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      {Object.entries(NOSSIE_SUPPORTED_PROVIDERS).map(([key, provider]) => {
-                        console.log(`📋 Rendering provider option: ${key} - ${provider.name}`)
+                      {Object.entries(NOSSIE_SUPPORTED_PROVIDERS).map(([key, providerData]) => {
+                        console.log(`📋 Rendering provider option: ${key} - ${providerData.name}`)
+                        const isConfigured = config.provider === key && (key === 'self-hosted' ? !!config.baseUrl : !!config.apiKey)
                         return (
                           <SelectItem key={key} value={key}>
-                            <div className="flex items-center gap-2">
-                              <Sparkles className="h-4 w-4 text-purple-500" />
-                              {provider.name}
+                            <div className="flex items-center gap-2 w-full">
+                              {key === 'self-hosted' ? (
+                                <Server className="h-4 w-4 text-orange-500" />
+                              ) : (
+                                <Sparkles className="h-4 w-4 text-purple-500" />
+                              )}
+                              <span className="flex-1">{providerData.name}</span>
+                              {isConfigured && (
+                                <CheckCircle className="h-3 w-3 text-green-500" />
+                              )}
+                              {key === 'self-hosted' && (
+                                <span className="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-1.5 py-0.5 rounded">
+                                  FREE
+                                </span>
+                              )}
+                              {key === 'groq' && (
+                                <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded">
+                                  FAST
+                                </span>
+                              )}
                             </div>
                           </SelectItem>
                         )
