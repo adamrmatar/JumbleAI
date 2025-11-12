@@ -9,7 +9,7 @@
 
 A user-friendly Nostr client for exploring relay feeds with **AI-powered analysis**
 
-Experience Jumble at [https://jumble.social](https://jumble.social)
+Experience Jumble at [https://jumbleai.shakespeare.wtf](https://jumbleai.shakespeare.wtf)
 
 ## 🤖 NEW: Multi-Provider AI Analysis (Nossie)
 
@@ -45,7 +45,7 @@ Jumble now features **Nossie AI** - an intelligent assistant that analyzes Nostr
 
 ```bash
 # Clone this repository
-git clone https://github.com/CodyTseng/jumble.git
+git clone https://github.com/adamrmatar/jumbleai.git
 
 # Go into the repository
 cd jumble
@@ -61,7 +61,7 @@ npm run dev
 
 ```bash
 # Clone this repository
-git clone https://github.com/CodyTseng/jumble.git
+git clone https://github.com/adamrmatar/jumbleai.git
 
 # Go into the repository
 cd jumble
@@ -80,7 +80,7 @@ After finishing, access: http://localhost:8089
 
 ## Donate
 
-If you like this project, you can buy me a coffee :)
+If you like this project, you can buy Cody a coffee for making this possible :)
 
 - **Lightning:** ⚡️ codytseng@getalby.com ⚡️
 - **Bitcoin:** bc1qwp2uqjd2dy32qfe39kehnlgx3hyey0h502fvht
